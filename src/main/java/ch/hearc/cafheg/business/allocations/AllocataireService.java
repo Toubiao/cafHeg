@@ -3,6 +3,7 @@ package ch.hearc.cafheg.business.allocations;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import ch.qos.logback.classic.Logger;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class AllocataireService {
     this.allocataireMapper = allocataireMapper;
   }
 
+  public List<Allocataire> findAllAllocataires(String likeNom) {
+    return allocataireMapper.findAll(likeNom);
+  }
+  
   public boolean deleteAllocataireById(Long id) {
     logger.info("Suppression allocataire");
     if (hasAllocataireAlreadyVersement(id)) {

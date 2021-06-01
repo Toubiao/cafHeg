@@ -12,6 +12,11 @@ public class Migrations {
   private final Database database;
   private final boolean forTest;
 
+  public Migrations(Database database, boolean forTest) {
+    this.database = database;
+    this.forTest = forTest;
+  }
+
   public Migrations(Database database) {
     this.database = database;
     this.forTest = false;

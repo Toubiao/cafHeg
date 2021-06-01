@@ -3,6 +3,7 @@ package ch.hearc.cafheg.infrastructure.api;
 import static ch.hearc.cafheg.infrastructure.persistance.Database.inTransaction;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
+import ch.hearc.cafheg.business.allocations.AllocataireService;
 import ch.hearc.cafheg.business.allocations.Allocation;
 import ch.hearc.cafheg.business.allocations.AllocationService;
 import ch.hearc.cafheg.business.droit.EnfantDroit;
@@ -23,14 +24,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class RESTController {
 
   private final AllocationService allocationService;
+  private final AllocataireService allocataireService;
   private final VersementService versementService;
 
   @Autowired
   public RESTController(AllocationService allocationService,
+      AllocataireService allocataireService,
       VersementService versementService) {
     this.allocationService = allocationService;
+    this.allocataireService = allocataireService;
     this.versementService = versementService;
   }
+
 
   /*
     // Headers de la requête HTTP doit contenir "Content-Type: application/json"
@@ -53,7 +58,7 @@ public class RESTController {
   @GetMapping("/allocataires")
   public List<Allocataire> allocataires(
       @RequestParam(value = "startsWith", required = false) String start) {
-    return inTransaction(() -> allocationService.findAllAllocataires(start));
+    return inTransaction(() -> allocataireService.findAllAllocataires(start));
   }
 
   @GetMapping("/allocations")

@@ -25,10 +25,6 @@ public class AllocationService {
     this.allocationMapper = allocationMapper;
   }
 
-  public List<Allocataire> findAllAllocataires(String likeNom) {
-    return allocataireMapper.findAll(likeNom);
-  }
-
   public List<Allocation> findAllocationsActuelles() {
     return allocationMapper.findAll();
   }
