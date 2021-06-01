@@ -1,10 +1,11 @@
 package ch.hearc.cafheg.business.allocations;
 
+import ch.hearc.cafheg.business.droit.EnfantDroit;
+import ch.hearc.cafheg.business.droit.Parent;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
-import java.math.BigDecimal;
+
 import java.util.List;
-import java.util.Map;
 
 public class AllocationService {
 
@@ -29,35 +30,41 @@ public class AllocationService {
     return allocationMapper.findAll();
   }
 
-  public String getParentDroitAllocation(Map<String, Object> parameters) {
+  public Parent getParentDroitAllocation(EnfantDroit ed) {
     System.out.println("Déterminer le droit aux allocations");
-    String eR = (String)parameters.getOrDefault("enfantResidence", "");
-    Boolean p1AL = (Boolean)parameters.getOrDefault("parent1ActiviteLucrative", false);
-    String p1Residence = (String)parameters.getOrDefault("parent1Residence", "");
-    Boolean p2AL = (Boolean)parameters.getOrDefault("parent2ActiviteLucrative", false);
-    String p2Residence = (String)parameters.getOrDefault("parent2Residence", "");
-    Boolean pEnsemble = (Boolean)parameters.getOrDefault("parentsEnsemble", false);
-    Number salaireP1 = (Number) parameters.getOrDefault("parent1Salaire", BigDecimal.ZERO);
-    Number salaireP2 = (Number) parameters.getOrDefault("parent2Salaire", BigDecimal.ZERO);
+    Parent parent1 = ed.getParent1();
+    Parent parent2 = ed.getParent2();
+    Parent parentDroit;
 
-    if(p1AL && p2AL) {
-      if(salaireP1.doubleValue() > salaireP2.doubleValue()) {
-        if(eR.equals(p1Residence)) {
-          return PARENT_1;
-        }
-      }
-
-      if(salaireP1.doubleValue() < salaireP2.doubleValue()) {
-        if(eR.equals(p2Residence)) {
-          return PARENT_2;
+    if(parent1.getActiviteLucrative() ^ parent2.getActiviteLucrative()){
+      parentDroit = (parent1.getActiviteLucrative()) ? parent1 : parent2;
+    }else {
+      if(parent1.getAAutoriteTutelaire() ^ parent2.getAAutoriteTutelaire()){
+        parentDroit = (parent1.getAAutoriteTutelaire()) ? parent1 : parent2;
+      }else{
+        if(!ed.getParentsEnsemble()){
+          parentDroit = ed.getResidance().equals(parent1.getResidence()) ? parent1 : parent2;
+        }else{
+          if (parent1.getCanton().equals(ed.getCanton()) ^ parent2.getCanton().equals(ed.getCanton())){
+            parentDroit = ed.getCanton().equals(parent1.getCanton()) ? parent1 : parent2;
+          }else if((!parent1.getIndependant() && !parent2.getIndependant()) || parent1.getIndependant() ^ parent2.getIndependant()){
+            if(!parent1.getIndependant() && !parent2.getIndependant()){
+              parentDroit = getParentWithHigherSalary(parent1, parent2);
+            }else{
+              parentDroit = parent1.getIndependant() ? parent2 : parent1;
+            }
+          }else{
+            // 2 indépendants
+            parentDroit = getParentWithHigherSalary(parent1, parent2);
+          }
         }
       }
     }
+    return parentDroit;
+  }
 
-    if(eR.equals(p1Residence) || eR.equals(p2Residence)) {
-      return PARENT_1;
-    }
+  private Parent getParentWithHigherSalary(Parent parent1, Parent parent2) {
 
-    return PARENT_2;
+    return parent1.getSalaire().doubleValue() > parent2.getSalaire().doubleValue() ? parent1 : parent2;
   }
 }
