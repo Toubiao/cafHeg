@@ -57,13 +57,7 @@ public class VersementService {
         .findAllVersementAllocation();
     return VersementAllocation.sommeParAnnee(versements, year);
   }
-
-  public boolean hasAllocataireAlreadyVersement(long id) {
-    return versementMapper.findVersementParentEnfant().stream()
-        .filter(v -> v.getParentId() == id)
-        .collect(Collectors.toList()).isEmpty();
-  }
-
+  
   public byte[] exportPDFAllocataire(long allocataireId) {
     List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
 
