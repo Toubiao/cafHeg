@@ -4,12 +4,14 @@ import ch.hearc.cafheg.business.droit.EnfantDroit;
 import ch.hearc.cafheg.business.droit.Parent;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
+import ch.qos.logback.classic.Logger;
 import java.util.List;
+import org.slf4j.LoggerFactory;
 
 public class AllocationService {
 
-  private static final String PARENT_1 = "Parent1";
-  private static final String PARENT_2 = "Parent2";
+  private static final Logger logger
+      = (Logger) LoggerFactory.getLogger(AllocationService.class);
 
   private final AllocataireMapper allocataireMapper;
   private final AllocationMapper allocationMapper;
@@ -30,7 +32,10 @@ public class AllocationService {
   }
 
   public Parent getParentDroitAllocation(EnfantDroit ed) {
-    System.out.println("Déterminer le droit aux allocations");
+    logger.info("Déterminer le droit aux allocations");
+    logger.debug("Déterminer le droit aux allocations deb");
+    logger.error("Déterminer le droit aux allocations errr ");
+
     Parent parent1 = ed.getParent1();
     Parent parent2 = ed.getParent2();
     Parent parentDroit;

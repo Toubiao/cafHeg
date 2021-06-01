@@ -1,8 +1,13 @@
 package ch.hearc.cafheg.infrastructure.persistance;
 
+import ch.qos.logback.classic.Logger;
 import org.flywaydb.core.Flyway;
+import org.slf4j.LoggerFactory;
 
 public class Migrations {
+
+  private static final Logger logger
+      = (Logger) LoggerFactory.getLogger(Migrations.class);
 
   private final Database database;
   private final boolean forTest;
@@ -13,7 +18,7 @@ public class Migrations {
   }
 
   public void start() {
-    System.out.println("Doing migrations");
+    logger.debug("Doing migrations");
 
     String location;
     if (forTest) {
@@ -28,7 +33,7 @@ public class Migrations {
         .load();
 
     flyway.migrate();
-    System.out.println("Migrations done");
+    logger.debug("Migrations done");
   }
 
 }

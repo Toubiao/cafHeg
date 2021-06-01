@@ -1,16 +1,20 @@
 package ch.hearc.cafheg.infrastructure.persistance;
 
+import ch.qos.logback.classic.Logger;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.function.Supplier;
 import javax.sql.DataSource;
+import org.slf4j.LoggerFactory;
 
 public class Database {
 
   private static DataSource dataSource;
   private static ThreadLocal<Connection> connection = new ThreadLocal<>();
+  private static final Logger logger
+      = (Logger) LoggerFactory.getLogger(Database.class);
 
   public Database() {
   }
@@ -40,12 +44,12 @@ public class Database {
   }
 
   public void start() {
-    System.out.println("Initializing datasource");
+    logger.debug("Initializing datasource");
     HikariConfig config = new HikariConfig();
     config.setJdbcUrl("jdbc:h2:mem:sample");
     config.setMaximumPoolSize(20);
     config.setDriverClassName("org.h2.Driver");
     dataSource = new HikariDataSource(config);
-    System.out.println("Datasource initialized");
+    logger.debug("Datasource initialized");
   }
 }

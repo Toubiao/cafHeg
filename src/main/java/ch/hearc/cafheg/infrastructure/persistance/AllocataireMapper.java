@@ -3,6 +3,7 @@ package ch.hearc.cafheg.infrastructure.persistance;
 import ch.hearc.cafheg.business.allocations.Allocataire;
 import ch.hearc.cafheg.business.allocations.NoAVS;
 import ch.hearc.cafheg.business.versements.VersementParentEnfant;
+import ch.qos.logback.classic.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,12 +11,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AllocataireMapper extends Mapper {
 
+  private static final Logger logger
+      = (Logger) LoggerFactory.getLogger(AllocataireMapper.class);
   @Autowired
   VersementMapper versementMapper;
 
@@ -57,10 +61,10 @@ public class AllocataireMapper extends Mapper {
         int nbDeleted = preparedStatement.executeUpdate();
         return nbDeleted > 0;
       } catch (SQLException throwables) {
-        throwables.printStackTrace();
+        logger.error(throwables.getMessage());
       }
     } else {
-      System.out.println("Allocataire avec des versements existants");
+      logger.debug("Allocataire avec des versements existants");
     }
     return false;
   }
@@ -76,10 +80,10 @@ public class AllocataireMapper extends Mapper {
         int nbUpdated = preparedStatement.executeUpdate();
         return nbUpdated > 0;
       } catch (SQLException throwables) {
-        throwables.printStackTrace();
+        logger.error(throwables.getMessage());
       }
     } else {
-      System.out.println("Aucun changement pour l'allocataire");
+      logger.debug("Aucun changement pour l'allocataire");
     }
     return false;
   }
