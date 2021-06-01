@@ -8,16 +8,16 @@ import ch.hearc.cafheg.business.allocations.AllocationService;
 import ch.hearc.cafheg.business.droit.EnfantDroit;
 import ch.hearc.cafheg.business.droit.Parent;
 import ch.hearc.cafheg.business.versements.VersementService;
-import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
-import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
-import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
-import ch.hearc.cafheg.infrastructure.persistance.EnfantMapper;
-import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RESTController {
@@ -25,25 +25,26 @@ public class RESTController {
   private final AllocationService allocationService;
   private final VersementService versementService;
 
-  public RESTController() {
-    this.allocationService = new AllocationService(new AllocataireMapper(), new AllocationMapper());
-    this.versementService = new VersementService(new VersementMapper(), new AllocataireMapper(),
-        new PDFExporter(new EnfantMapper()));
+  @Autowired
+  public RESTController(AllocationService allocationService,
+      VersementService versementService) {
+    this.allocationService = allocationService;
+    this.versementService = versementService;
   }
 
   /*
-  // Headers de la requête HTTP doit contenir "Content-Type: application/json"
-  // BODY de la requête HTTP à transmettre afin de tester le endpoint
-  {
-      "enfantResidence" : "Neuchâtel",
-      "parent1Residence" : "Neuchâtel",
-      "parent2Residence" : "Bienne",
-      "parent1ActiviteLucrative" : true,
-      "parent2ActiviteLucrative" : true,
-      "parent1Salaire" : 2500,
-      "parent2Salaire" : 3000
-  }
-   */
+    // Headers de la requête HTTP doit contenir "Content-Type: application/json"
+    // BODY de la requête HTTP à transmettre afin de tester le endpoint
+    {
+        "enfantResidence" : "Neuchâtel",
+        "parent1Residence" : "Neuchâtel",
+        "parent2Residence" : "Bienne",
+        "parent1ActiviteLucrative" : true,
+        "parent2ActiviteLucrative" : true,
+        "parent1Salaire" : 2500,
+        "parent2Salaire" : 3000
+    }
+     */
   @PostMapping("/droits/quel-parent")
   public Parent getParentDroitAllocation(@RequestBody EnfantDroit enfantDroit) {
     return inTransaction(() -> allocationService.getParentDroitAllocation(enfantDroit));
