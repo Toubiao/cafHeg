@@ -11,13 +11,17 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VersementService {
 
   private final VersementMapper versementMapper;
   private final AllocataireMapper allocataireMapper;
   private final PDFExporter pdfExporter;
 
+  @Autowired
   public VersementService(
       VersementMapper versementMapper,
       AllocataireMapper allocataireMapper,
@@ -52,6 +56,12 @@ public class VersementService {
     List<VersementAllocation> versements = versementMapper
         .findAllVersementAllocation();
     return VersementAllocation.sommeParAnnee(versements, year);
+  }
+
+  public boolean hasAllocataireAlreadyVersement(long id) {
+    return versementMapper.findVersementParentEnfant().stream()
+        .filter(v -> v.getParentId() == id)
+        .collect(Collectors.toList()).isEmpty();
   }
 
   public byte[] exportPDFAllocataire(long allocataireId) {

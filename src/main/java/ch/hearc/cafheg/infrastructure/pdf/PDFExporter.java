@@ -1,8 +1,8 @@
 package ch.hearc.cafheg.infrastructure.pdf;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
-import ch.hearc.cafheg.business.versements.Enfant;
 import ch.hearc.cafheg.business.common.Montant;
+import ch.hearc.cafheg.business.versements.Enfant;
 import ch.hearc.cafheg.infrastructure.persistance.EnfantMapper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -12,7 +12,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PDFExporter {
 
   private final EnfantMapper enfantMapper;

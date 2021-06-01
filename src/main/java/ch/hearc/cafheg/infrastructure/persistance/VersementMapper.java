@@ -11,9 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 public class VersementMapper extends Mapper {
 
   public List<VersementAllocationNaissance> findAllVersementAllocationNaissance() {

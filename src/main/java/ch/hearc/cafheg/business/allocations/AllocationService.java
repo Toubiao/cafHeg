@@ -7,7 +7,9 @@ import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.qos.logback.classic.Logger;
 import java.util.List;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AllocationService {
 
   private static final Logger logger
