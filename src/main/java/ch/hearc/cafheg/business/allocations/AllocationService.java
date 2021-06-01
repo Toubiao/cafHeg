@@ -4,7 +4,6 @@ import ch.hearc.cafheg.business.droit.EnfantDroit;
 import ch.hearc.cafheg.business.droit.Parent;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
-
 import java.util.List;
 
 public class AllocationService {
@@ -36,24 +35,26 @@ public class AllocationService {
     Parent parent2 = ed.getParent2();
     Parent parentDroit;
 
-    if(parent1.getActiviteLucrative() ^ parent2.getActiviteLucrative()){
+    if (parent1.getActiviteLucrative() ^ parent2.getActiviteLucrative()) {
       parentDroit = (parent1.getActiviteLucrative()) ? parent1 : parent2;
-    }else {
-      if(parent1.getAAutoriteTutelaire() ^ parent2.getAAutoriteTutelaire()){
+    } else {
+      if (parent1.getAAutoriteTutelaire() ^ parent2.getAAutoriteTutelaire()) {
         parentDroit = (parent1.getAAutoriteTutelaire()) ? parent1 : parent2;
-      }else{
-        if(!ed.getParentsEnsemble()){
+      } else {
+        if (!ed.getParentsEnsemble()) {
           parentDroit = ed.getResidance().equals(parent1.getResidence()) ? parent1 : parent2;
-        }else{
-          if (parent1.getCanton().equals(ed.getCanton()) ^ parent2.getCanton().equals(ed.getCanton())){
+        } else {
+          if (parent1.getCanton().equals(ed.getCanton()) ^ parent2.getCanton()
+              .equals(ed.getCanton())) {
             parentDroit = ed.getCanton().equals(parent1.getCanton()) ? parent1 : parent2;
-          }else if((!parent1.getIndependant() && !parent2.getIndependant()) || parent1.getIndependant() ^ parent2.getIndependant()){
-            if(!parent1.getIndependant() && !parent2.getIndependant()){
+          } else if ((!parent1.getIndependant() && !parent2.getIndependant())
+              || parent1.getIndependant() ^ parent2.getIndependant()) {
+            if (!parent1.getIndependant() && !parent2.getIndependant()) {
               parentDroit = getParentWithHigherSalary(parent1, parent2);
-            }else{
+            } else {
               parentDroit = parent1.getIndependant() ? parent2 : parent1;
             }
-          }else{
+          } else {
             // 2 indépendants
             parentDroit = getParentWithHigherSalary(parent1, parent2);
           }
@@ -65,6 +66,7 @@ public class AllocationService {
 
   private Parent getParentWithHigherSalary(Parent parent1, Parent parent2) {
 
-    return parent1.getSalaire().doubleValue() > parent2.getSalaire().doubleValue() ? parent1 : parent2;
+    return parent1.getSalaire().doubleValue() > parent2.getSalaire().doubleValue() ? parent1
+        : parent2;
   }
 }

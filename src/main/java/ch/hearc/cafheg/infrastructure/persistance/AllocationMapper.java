@@ -3,14 +3,12 @@ package ch.hearc.cafheg.infrastructure.persistance;
 import ch.hearc.cafheg.business.allocations.Allocation;
 import ch.hearc.cafheg.business.allocations.Canton;
 import ch.hearc.cafheg.business.common.Montant;
-import ch.hearc.cafheg.infrastructure.application.Application;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AllocationMapper extends Mapper {
 

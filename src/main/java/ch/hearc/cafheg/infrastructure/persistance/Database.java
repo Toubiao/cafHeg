@@ -8,10 +8,12 @@ import java.util.function.Supplier;
 import javax.sql.DataSource;
 
 public class Database {
+
   private static DataSource dataSource;
   private static ThreadLocal<Connection> connection = new ThreadLocal<>();
 
-  public Database() {}
+  public Database() {
+  }
 
   static Connection getConnection() {
     return connection.get();

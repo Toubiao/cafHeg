@@ -10,10 +10,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EnfantDroit {
-    String residance;
-    Boolean parentsEnsemble;
-    Parent parent1;
-    Parent parent2;
-    String canton;
+
+  String residance;
+  Boolean parentsEnsemble;
+  Parent parent1;
+  Parent parent2;
+  String canton;
 
 }

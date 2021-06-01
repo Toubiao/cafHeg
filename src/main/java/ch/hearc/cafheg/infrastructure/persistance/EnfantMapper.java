@@ -1,8 +1,7 @@
 package ch.hearc.cafheg.infrastructure.persistance;
 
-import ch.hearc.cafheg.business.versements.Enfant;
 import ch.hearc.cafheg.business.allocations.NoAVS;
-import ch.hearc.cafheg.infrastructure.application.Application;
+import ch.hearc.cafheg.business.versements.Enfant;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

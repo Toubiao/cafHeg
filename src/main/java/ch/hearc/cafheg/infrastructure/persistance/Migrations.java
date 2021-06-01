@@ -1,6 +1,5 @@
 package ch.hearc.cafheg.infrastructure.persistance;
 
-import java.util.List;
 import org.flywaydb.core.Flyway;
 
 public class Migrations {
@@ -17,10 +16,10 @@ public class Migrations {
     System.out.println("Doing migrations");
 
     String location;
-    if(forTest) {
-      location =  "classpath:db/ddl";
+    if (forTest) {
+      location = "classpath:db/ddl";
     } else {
-      location =  "classpath:db";
+      location = "classpath:db";
     }
 
     Flyway flyway = Flyway.configure()

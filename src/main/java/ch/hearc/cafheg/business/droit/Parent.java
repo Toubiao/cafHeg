@@ -9,10 +9,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Parent {
-    Boolean activiteLucrative;
-    String residence;
-    Boolean aAutoriteTutelaire;
-    Number salaire;
-    String canton;
-    Boolean independant;
+
+  Boolean activiteLucrative;
+  String residence;
+  Boolean aAutoriteTutelaire;
+  Number salaire;
+  String canton;
+  Boolean independant;
 }
