@@ -54,7 +54,8 @@ class AllocationServiceTest {
 
 
   @Test
-  void getParentDroitAllocation_GivenParent1Lucratif_ShouldReturnParent1() throws ParseException {
+  void getParentDroitAllocation_GivenChildWithParent1Lucratif_ShouldReturnParent1()
+      throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
         "NE", false);
     Parent p2 = new Parent(false, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
@@ -64,7 +65,8 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenParent2Lucratif_ShouldReturnParent2() throws ParseException {
+  void getParentDroitAllocation_GivenChildWithParent2Lucratif_ShouldReturnParent2()
+      throws ParseException {
     Parent p1 = new Parent(false, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
         "NE", false);
     Parent p2 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
@@ -74,7 +76,7 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenOnlyParent1Authority_ShouldReturnParent1()
+  void getParentDroitAllocation_GivenChildWithOnlyParent1Authority_ShouldReturnParent1()
       throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
         "NE", false);
@@ -85,7 +87,7 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenOnlyParent2Authority_ShouldReturnParent2()
+  void getParentDroitAllocation_GivenChildWithOnlyParent2Authority_ShouldReturnParent2()
       throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", false, NumberFormat.getInstance().parse("5000"),
         "NE", false);
@@ -118,7 +120,7 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenParent1WorkingInSameCantonChild_ShouldReturnParent1()
+  void getParentDroitAllocation_GivenChildWithParent1WorkingInSameCantonChild_ShouldReturnParent1()
       throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
         "NE", false);
@@ -130,7 +132,7 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenParent2WorkingInSameCantonChild_ShouldReturnParent2()
+  void getParentDroitAllocation_GivenChildWithParent2WorkingInSameCantonChild_ShouldReturnParent2()
       throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
         "GE", false);
@@ -141,10 +143,9 @@ class AllocationServiceTest {
 
   }
 
-  //                                         1 parent est salarié et l'autre pas -> parent 1 -> parent2
-  //                                          2 parents indépendants -> parent1Big Salaire -> parentBig Salaire
+
   @Test
-  void getParentDroitAllocation_GivenBothParentNotIndepedantParent1WithHigherSalary_ShouldReturnParent1()
+  void getParentDroitAllocation_GivenChildWithBothParentNotIndepedantParent1WithHigherSalary_ShouldReturnParent1()
       throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("6000"),
         "NE", false);
@@ -155,7 +156,7 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenBothParentNotIndepedantParent2WithHigherSalary_ShouldReturnParent2()
+  void getParentDroitAllocation_GivenChildWithBothParentNotIndepedantParent2WithHigherSalary_ShouldReturnParent2()
       throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("6000"),
         "NE", false);
@@ -166,7 +167,8 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenParent1Indepedant_ShouldReturnParent2() throws ParseException {
+  void getParentDroitAllocation_GivenChildWithParent1Indepedant_ShouldReturnParent2()
+      throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("6000"),
         "NE", true);
     Parent p2 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
@@ -176,7 +178,8 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenParent2Indepedant_ShouldReturnParent1() throws ParseException {
+  void getParentDroitAllocation_GivenChildWithParent2Indepedant_ShouldReturnParent1()
+      throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("6000"),
         "NE", false);
     Parent p2 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("5000"),
@@ -186,7 +189,7 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenBothParentIndepedantParent1WithHigherSalary_ShouldReturnParent1()
+  void getParentDroitAllocation_GivenChildWithBothParentIndepedantParent1WithHigherSalary_ShouldReturnParent1()
       throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("6000"),
         "NE", true);
@@ -197,7 +200,7 @@ class AllocationServiceTest {
   }
 
   @Test
-  void getParentDroitAllocation_GivenBothParentIndepedantParent2WithHigherSalary_ShouldReturnParent2()
+  void getParentDroitAllocation_GivenChildWithBothParentIndepedantParent2WithHigherSalary_ShouldReturnParent2()
       throws ParseException {
     Parent p1 = new Parent(true, "rue de salut", true, NumberFormat.getInstance().parse("6000"),
         "NE", true);
