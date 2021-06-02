@@ -16,7 +16,19 @@ public class NoAVS {
 
   @Override
   public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     NoAVS noAVS = (NoAVS) o;
-    return Objects.equals(getValue(), noAVS.getValue());
+    
+    if (noAVS.value == null) {
+      return false;
+    }
+    return Objects.equals(value, noAVS.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
   }
 }

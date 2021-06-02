@@ -13,9 +13,8 @@ public class EnfantMapper extends Mapper {
 
   public Enfant findById(long id) {
     Connection connection = getConnection();
-    try {
-      PreparedStatement preparedStatement = connection.prepareStatement(
-          "SELECT NO_AVS, NOM, PRENOM FROM ENFANTS WHERE NUMERO=?");
+    try (PreparedStatement preparedStatement = connection.prepareStatement(
+        "SELECT NO_AVS, NOM, PRENOM FROM ENFANTS WHERE NUMERO=?")) {
       preparedStatement.setLong(1, id);
       ResultSet resultSet = preparedStatement.executeQuery();
       resultSet.next();

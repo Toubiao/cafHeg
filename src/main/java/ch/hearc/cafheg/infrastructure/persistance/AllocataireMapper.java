@@ -79,9 +79,8 @@ public class AllocataireMapper extends Mapper {
 
   public Allocataire findById(long id) {
     Connection connection = getConnection();
-    try {
-      PreparedStatement preparedStatement = connection.prepareStatement(
-          "SELECT NO_AVS, NOM, PRENOM FROM ALLOCATAIRES WHERE NUMERO=?");
+    try (PreparedStatement preparedStatement = connection.prepareStatement(
+        "SELECT NO_AVS, NOM, PRENOM FROM ALLOCATAIRES WHERE NUMERO=?")) {
       preparedStatement.setLong(1, id);
       ResultSet resultSet = preparedStatement.executeQuery();
       resultSet.next();

@@ -16,9 +16,8 @@ public class AllocationMapper extends Mapper {
 
   public List<Allocation> findAll() {
     Connection connection = getConnection();
-    try {
-      PreparedStatement preparedStatement = connection
-          .prepareStatement("SELECT * FROM ALLOCATIONS");
+    try (PreparedStatement preparedStatement = connection
+        .prepareStatement("SELECT * FROM ALLOCATIONS")) {
       ResultSet resultSet = preparedStatement.executeQuery();
       List<Allocation> allocations = new ArrayList<>();
       while (resultSet.next()) {

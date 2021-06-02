@@ -28,11 +28,13 @@ public class Database {
       connection.set(dataSource.getConnection());
       return inTransaction.get();
     } catch (Exception e) {
+      logger.error(e.getMessage());
       throw new RuntimeException(e);
     } finally {
       try {
         connection.get().close();
       } catch (SQLException e) {
+        logger.error(e.getMessage());
         throw new RuntimeException(e);
       }
       connection.remove();
