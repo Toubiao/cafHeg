@@ -17,7 +17,19 @@ public class Montant {
 
   @Override
   public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Montant montant = (Montant) o;
-    return Objects.equals(getValue(), montant.getValue());
+    if (montant.value == null) {
+      return false;
+    }
+
+    return Objects.equals(value, montant.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
   }
 }
