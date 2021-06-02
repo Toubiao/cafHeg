@@ -41,6 +41,7 @@ public class AllocataireMapper extends Mapper {
       }
       return allocataires;
     } catch (SQLException e) {
+      logger.error(e.getMessage());
       throw new RuntimeException(e);
     }
   }
@@ -60,12 +61,13 @@ public class AllocataireMapper extends Mapper {
 
   public boolean updateById(long id, Allocataire allocataire) {
     Allocataire oldAllocataire = findById(id);
-    if (!oldAllocataire.equals(oldAllocataire)) {
+    if (!oldAllocataire.equals(allocataire)) {
       Connection cnn = getConnection();
       try (PreparedStatement preparedStatement = cnn
           .prepareStatement("UPDATE ALLOCATAIRES SET NOM = ?, PRENOM = ? WHERE NUMERO=?")) {
         preparedStatement.setString(1, allocataire.getNom());
         preparedStatement.setString(2, allocataire.getPrenom());
+        preparedStatement.setLong(3, id);
         int nbUpdated = preparedStatement.executeUpdate();
         return nbUpdated > 0;
       } catch (SQLException throwables) {
@@ -87,6 +89,7 @@ public class AllocataireMapper extends Mapper {
       return new Allocataire(new NoAVS(resultSet.getString(1)),
           resultSet.getString(2), resultSet.getString(3));
     } catch (SQLException e) {
+      logger.error(e.getMessage());
       throw new RuntimeException(e);
     }
   }

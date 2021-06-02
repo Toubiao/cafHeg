@@ -19,7 +19,6 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class AllocataireServiceTestIT {
 
@@ -27,13 +26,19 @@ public class AllocataireServiceTestIT {
 
   private AllocataireMapper allocataireMapper;
   private VersementMapper versementMapper;
+  Database database;
 
   @BeforeEach
   void setUp() {
-    allocataireMapper = Mockito.mock(AllocataireMapper.class);
-    versementMapper = Mockito.mock(VersementMapper.class);
+    allocataireMapper = new AllocataireMapper();
+    versementMapper = new VersementMapper();
 
     allocataireService = new AllocataireService(versementMapper, allocataireMapper);
+
+    database = new Database();
+    database.start();
+    Migrations migrations = new Migrations(database, true);
+    migrations.start();
   }
 
   @Test
@@ -61,10 +66,6 @@ public class AllocataireServiceTestIT {
 
   @Test
   void modifyAllocaireById_GivenDifferentSurnameAndFirstname_ShouldBetrue() throws Exception {
-    Database database = new Database();
-    database.start();
-    Migrations migrations = new Migrations(database, true);
-    migrations.start();
     try (Connection connection = database.getDataSource().getConnection()) {
       IDatabaseConnection dbCnn = new DatabaseConnection(connection);
       IDataSet dataSet = new FlatXmlDataSetBuilder()
