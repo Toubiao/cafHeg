@@ -5,16 +5,21 @@ import ch.hearc.cafheg.business.versements.VersementAllocation;
 import ch.hearc.cafheg.business.versements.VersementAllocationNaissance;
 import ch.hearc.cafheg.business.versements.VersementParentEnfant;
 import ch.hearc.cafheg.business.versements.VersementParentParMois;
+import ch.qos.logback.classic.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class VersementMapper extends Mapper {
+
+  private static final Logger logger
+      = (Logger) LoggerFactory.getLogger(VersementMapper.class);
 
   public List<VersementAllocationNaissance> findAllVersementAllocationNaissance() {
     Connection connection = getConnection();
@@ -30,6 +35,7 @@ public class VersementMapper extends Mapper {
       }
       return versements;
     } catch (SQLException e) {
+      logger.error(e.getMessage());
       throw new RuntimeException(e);
     }
   }
@@ -48,6 +54,7 @@ public class VersementMapper extends Mapper {
       }
       return versements;
     } catch (SQLException e) {
+      logger.error(e.getMessage());
       throw new RuntimeException(e);
     }
   }
@@ -66,6 +73,7 @@ public class VersementMapper extends Mapper {
       }
       return versements;
     } catch (SQLException e) {
+      logger.error(e.getMessage());
       throw new RuntimeException(e);
     }
   }
@@ -84,6 +92,7 @@ public class VersementMapper extends Mapper {
       }
       return versements;
     } catch (SQLException e) {
+      logger.error(e.getMessage());
       throw new RuntimeException(e);
     }
   }
